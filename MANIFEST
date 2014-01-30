@@ -1,0 +1,22 @@
+Build.PL
+Changes
+INSTALL
+lib/Data/Checker.pm
+lib/Data/Checker.pod
+lib/Data/Checker/DNS.pm
+lib/Data/Checker/DNS.pod
+lib/Data/Checker/Ping.pm
+lib/Data/Checker/Ping.pod
+LICENSE
+Makefile.PL
+MANIFEST			This list of files
+META.json
+README
+t/dns.t
+t/ping.t
+t/pod.t
+t/pod_coverage.t
+t/runtests
+t/runtests.bat
+t/simple.t
+META.yml
