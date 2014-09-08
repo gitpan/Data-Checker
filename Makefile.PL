@@ -11,6 +11,8 @@ my %module_prereq = (
    'Module::Loaded'           => '0',
    'Net::DNS'                 => '0',
    'Net::Ping'                => '0',
+   'NetAddr::IP'              => '4.073',
+   'NetAddr::IP::Lite'        => '0',
    'Parallel::ForkManager'    => '0',
 );
 
@@ -28,26 +30,28 @@ my %config_prereq = (
 );
 
 %module_prereq = (%module_prereq,%script_prereq);
-if ($ExtUtils::MakeMaker::VERSION < 6.64) {
+my $EU_MM_V    = $ExtUtils::MakeMaker::VERSION;
+$EU_MM_V       =~ s/_//g;
+if ($EU_MM_V < 6.64) {
    %config_prereq = (%config_prereq,%test_prereq);
 }
 
 WriteMakefile(
    NAME             => "Data::Checker",
-   VERSION          => "1.00",
+   VERSION          => "1.01",
    ABSTRACT         => "a framework for checking data validity",
    LICENSE          => "perl",
-   ($ExtUtils::MakeMaker::VERSION >= 6.48
+   ($EU_MM_V >= 6.48
     ? (MIN_PERL_VERSION => "5.008")
     : ()),
    AUTHOR           => "Sullivan Beck (sbeck\@cpan.org)",
    "dist"           => {COMPRESS=>"gzip",SUFFIX=>"gz"},
    PL_FILES         => {},
    PREREQ_PM        => \%module_prereq,
-   ($ExtUtils::MakeMaker::VERSION >= 6.52
+   ($EU_MM_V >= 6.52
     ? (CONFIGURE_REQUIRES => \%config_prereq)
     : ()),
-   ($ExtUtils::MakeMaker::VERSION >= 6.64
+   ($EU_MM_V >= 6.64
     ? (TEST_REQUIRES   => \%test_prereq)
     : ()),
 );

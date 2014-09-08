@@ -305,6 +305,13 @@ CHECK FUNCTION METHODS
 
         If $err is non-empty, an error has occurred.
 
+        If the $negate_fail empty is empty, the 'negate' option will be
+        ignored. This is typically used to test an element to see if it is
+        the right type of data for this check. If it isn't, other types of
+        checks are typically not able to run.
+
+        If $label is empty, the test is always performed.
+
 KNOWN BUGS AND LIMITATIONS
     None known.
 

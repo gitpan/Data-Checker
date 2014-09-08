@@ -12,7 +12,7 @@ use Module::Loaded;
 use Parallel::ForkManager 0.7.6;
 
 our($VERSION);
-$VERSION = '1.00';
+$VERSION='1.01';
 
 ###############################################################################
 # BASE METHODS
@@ -256,9 +256,23 @@ sub check_value {
    my($self,$check_opts,$label,$element,$value,$std_fail,$negate_fail,
       $err,$warn,$info) = @_;
 
-   if ($self->check_performed($check_opts,$label)) {
+   while (1) {
+
+      # We perform the check if the $label check is performed, or if
+      # there is no label.
+
+      my $do_check = 1  if (! $label  ||
+                            $self->check_performed($check_opts,$label));
+      last  if (! $do_check);
+
+      # Find the severity level and negate options (negate will never
+      # occur if we didn't pass in a negate_fail message).
+
       my $level  = $self->check_level($check_opts,$label);
       my $negate = $self->check_option($check_opts,'negate',0,$label);
+      $negate    = 0  if (! defined($negate_fail));
+
+      # Check the value.
 
       if (! $negate  &&  ! $value) {
          $self->check_message($check_opts,$label,$element,$std_fail,
@@ -267,6 +281,8 @@ sub check_value {
          $self->check_message($check_opts,$label,$element,$negate_fail,
                               $level,$err,$warn,$info);
       }
+
+      last;
    }
 
    return ($element,$err,$warn,$info);

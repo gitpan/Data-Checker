@@ -60,6 +60,34 @@ This is the timeout to use for a given check.
 
 =back
 
+=head1 EXAMPLES
+
+All examples include the following lines:
+
+   use Data::Checker;
+   $obj = new Data::Checker;
+
+   $data = ...
+   $opts = ...
+
+   ($pass,$fail,$info,$warn) = $obj->check($data,"Ping",$opts);
+
+The value of $data and $opts is listed below in the examples.
+
+=over 4
+
+=item To test if a host responds to external pings
+
+   $data = [ 'cpan.org', 'aaa.bbb.ccc' ];
+   $opts = { 'external' => undef };
+
+Produces:
+
+   $pass = [ 'cpan.org' ]
+   $fail = {'aaa.bbb.ccc' => ['Host does not respond to external pings']};
+
+=back
+
 =head1 KNOWN BUGS AND LIMITATIONS
 
 None known.

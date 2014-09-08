@@ -2,6 +2,13 @@ Written by:
    Sullivan Beck (sbeck@cpan.org)
 Any suggestions, bug reports, or donations :-) should be sent to me.
 
-1.00  
+1.00  2014-01-30
   - Initial release.
+
+1.01  2014-09-08
+  - Add examples to docs
+  - Fixed a DNS test (RT 98598)
+  - Added Data::Checker::IP
+  - Modified Data::Checker::DNS to support IPs
+  - Modified check_value method to support non-negatable tests
 

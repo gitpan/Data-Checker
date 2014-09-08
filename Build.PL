@@ -12,6 +12,8 @@ my %module_prereq = (
    'Module::Loaded'           => '0',
    'Net::DNS'                 => '0',
    'Net::Ping'                => '0',
+   'NetAddr::IP'              => '4.073',
+   'NetAddr::IP::Lite'        => '0',
    'Parallel::ForkManager'    => '0',
 );
 
@@ -40,7 +42,7 @@ my $class = Module::Build->subclass(
 
 my $build = $class->new(
       module_name        => "Data::Checker",
-      dist_version       => "1.00",
+      dist_version       => "1.01",
       dist_abstract      => "a framework for checking data validity",
       license            => "perl",
       dist_author        => "Sullivan Beck <sbeck\@cpan.org>",

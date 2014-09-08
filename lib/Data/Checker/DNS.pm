@@ -11,38 +11,51 @@ use strict;
 use Net::DNS;
 
 our($VERSION);
-$VERSION = '1.00';
+$VERSION='1.01';
 
 ###############################################################################
 ###############################################################################
 
 sub check {
    my($obj,$element,$desc,$check_opts) = @_;
-   my $err  = [];
-   my $warn = [];
-   my $info = [];
+   my $err    = [];
+   my $warn   = [];
+   my $info   = [];
+   # 0 - 255
+   my $oct_rx = qr/([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])/;
 
    if (! defined $check_opts) {
       $check_opts = { 'dns' => undef };
    }
 
+   # Check to see if it's an IP
+
+   my $is_hostname = ($element !~ /^$oct_rx\.$oct_rx\.$oct_rx\.$oct_rx$/);
+
    # Do the qualified check
 
-   my @host = split(/\./,$element);
-   my($fqhost,$uqhost,$domain);
-   if (@host == 1) {
-      $uqhost = $element;
-   } else {
-      $fqhost = $element;
-      $uqhost = shift(@host);
-      $domain = join('.',@host);
-   }
-
-   $obj->check_value($check_opts,'qualified',$element,$fqhost,
-                     'Host is not fully qualified',
-                     'Host is fully qualified',
+   $obj->check_value($check_opts,'qualified',$element,$is_hostname,
+                     'Only hostnames can be check with qualified',undef,
                      $err,$warn,$info);
    return ($element,$err,$warn,$info)  if (@$err);
+
+   if ($is_hostname) {
+      my @host = split(/\./,$element);
+      my($fqhost,$uqhost,$domain);
+      if (@host == 1) {
+         $uqhost = $element;
+      } else {
+         $fqhost = $element;
+         $uqhost = shift(@host);
+         $domain = join('.',@host);
+      }
+
+      $obj->check_value($check_opts,'qualified',$element,$fqhost,
+                        'Host is not fully qualified',
+                        'Host is fully qualified',
+                        $err,$warn,$info);
+      return ($element,$err,$warn,$info)  if (@$err);
+   }
 
    # Set up the resolver
 

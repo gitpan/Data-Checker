@@ -19,8 +19,8 @@ Data::Checker::DNS - check data to see if it is valid in DNS
 
 This module is meant to be used by the Data::Checker module.
 
-One set of checks that is often done on sets of hosts is to check
-that they are defined in DNS.  This module provides several DNS
+One set of checks that is often done on sets of hostnames or IPs is to
+check that they are defined in DNS.  This module provides several DNS
 related checks that can be performed.
 
 =head1 FUNCTIONS
@@ -36,16 +36,16 @@ intended to be used by the Data::Checker module.
 
 =head1 CHECKS OPTIONS
 
-The B<$check_opts> hashref defines exactly what DNS checks to
-perform, and some options used by those checks.  Known keys that
-specify the checks are:
+The B<$check_opts> hashref defines exactly what DNS checks to perform,
+and some options used by those checks.  Known keys that specify the
+checks are:
 
 =over 4
 
 =item qualified
 
 If this keys is present, the hostname is tested to see if it
-is fully qualified or not.
+is fully qualified or not.  This check will fail on on IP.
 
 This check does not actually do a DNS lookup.  Instead, it looks at the
 hostname to see if is fully qualified or not.
@@ -55,8 +55,8 @@ unqualifed if the 'negate' option is given).
 
 =item dns
 
-If this key is present, the hostname is tested to see if it is in
-DNS.  If the host is defined in DNS, it passes.
+If this key is present, the hostname or IP is tested to see if it is
+in DNS.  If it is defined in DNS, it passes.
 
 This is the default check done, and if B<$check_opts> is not passed
 in, this check will be performed.
@@ -89,6 +89,68 @@ The following keys can also be present to specify additional options:
 =item nameservers
 
 This is a whitespace separated list of nameservers to use.
+
+=back
+
+=head1 EXAMPLES
+
+All examples include the following lines:
+
+   use Data::Checker;
+   $obj = new Data::Checker;
+
+   $data = ...
+   $opts = ...
+
+   ($pass,$fail,$info,$warn) = $obj->check($data,"DNS",$opts);
+
+The value of $data and $opts is listed below in the examples.
+
+=over 4
+
+=item To check if a hostname is fully qualified
+
+   $data = [ 'foo', 'bar.com' ];
+   $opts = { 'qualified'  => undef };
+
+This yields:
+
+   $pass = [ 'bar.com' ]
+   $fail = { 'foo' => [ 'Host is not fully qualified' ] }
+
+=item To check if a hostname is NOT fully qualified:
+
+   $data = [ 'foo', 'bar.com' ];
+   $opts = { 'qualified' => { 'negate' => 1 } };
+
+This yields:
+
+   $pass = [ 'foo' ]
+   $fail = { 'bar.com' => [ 'Host is fully qualified' ] }
+
+=item To check that a host is in DNS:
+
+   $data = [ 'cpan.org', 'aaa.bbb.ccc' ];
+   $opts = { 'dns' => undef };
+
+=item To check that a host has the expected IP in DNS
+
+Current DNS shows:
+
+   cpan.org        = 207.171.7.91
+   blogs.perl.org  = 188.40.132.3
+
+The test:
+
+   $data = { 'cpan.org' => { 'ip'  => '207.171.7.91' },
+             'blogs.perl.org' => { 'ip'  => '100.101.102.103' } };
+   $opts = { 'dns' => undef,
+             'expected_ip' => undef };
+
+Yields:
+
+   $pass = { 'cpan.org'       => { 'ip'  => '207.171.7.91' } }
+   $fail = { 'blogs.perl.org' => [ 'DNS IP value does not match expected value' ] }
 
 =back
 

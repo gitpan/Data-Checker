@@ -38,12 +38,13 @@ sub test {
 
 $tests=q(
 
-[ foo bar foo.com bar.com ] { qualified __undef__ }
+[ foo bar foo.com bar.com 100.101.0.103 ] { qualified __undef__ }
    =>
    PASS
    bar.com
    foo.com
    FAIL
+   '100.101.0.103 Only hostnames can be check with qualified'
    'bar Host is not fully qualified'
    'foo Host is not fully qualified'
    INFO
@@ -87,7 +88,7 @@ $tests=q(
    INFO
    WARN
 
-{ cpansearch.perl.org { ip [ 199.15.176.161 ] } www.pm.org { ip [ 1.2.3.4 ] } }
+{ cpansearch.perl.org { ip [ 199.15.177.149 ] } www.pm.org { ip [ 1.2.3.4 ] } }
 { dns __undef__ expected_ip __undef__ }
    =>
    PASS
