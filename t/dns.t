@@ -1,12 +1,25 @@
 #!/usr/bin/perl -w
 
-use Test::Inter;
-$t = new Test::Inter 'DNS tests';
+BEGIN {
+  use Test::Inter;
+  $t = new Test::Inter 'DNS tests';
+}
+
 $testdir = '';
 $testdir = $t->testdir();
 
 use Data::Checker;
 $obj   = new Data::Checker;
+
+BEGIN { $t->use_ok('Net::DNS') }
+
+# Net::DNS fails with some versions:
+#   Okay: 0.74 0.77 0.78
+#   Fail: 0.75 0.76 0.79
+
+my $v    = $Net::DNS::VERSION;
+my $fail = 1  if ( ($v >= 0.75  &&  $v < 0.77)  ||  ($v >= 0.79  &&  $v < 0.80) );
+$t->skip_all('Net::DNS tests skipped for this version of Net::DNS')  if ($fail);
 
 sub test {
    my($data,$opts) = @_;

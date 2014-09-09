@@ -12,3 +12,8 @@ Any suggestions, bug reports, or donations :-) should be sent to me.
   - Modified Data::Checker::DNS to support IPs
   - Modified check_value method to support non-negatable tests
 
+1.02  2014-09-09
+  - The DNS test had 2 problems.  The 1.01 release only fixed one
+    of them.  This adds a workaround for some broken versions of
+    Net::DNS.  (RT 98598)
+
