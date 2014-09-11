@@ -12,6 +12,7 @@ my %module_prereq = (
    'Module::Loaded'           => '0',
    'Net::DNS'                 => '0',
    'Net::Ping'                => '0',
+   'Net::Ping::External'      => '0',
    'NetAddr::IP'              => '4.073',
    'NetAddr::IP::Lite'        => '0',
    'Parallel::ForkManager'    => '0',
@@ -21,7 +22,6 @@ my %script_prereq = (
 );
 
 my %test_prereq = (
-   'Net::Ping::External'      => '0',
    'Test::Inter'              => '0',
    'Test::More'               => '0',
 );
@@ -42,7 +42,7 @@ my $class = Module::Build->subclass(
 
 my $build = $class->new(
       module_name        => "Data::Checker",
-      dist_version       => "1.02",
+      dist_version       => "1.03",
       dist_abstract      => "a framework for checking data validity",
       license            => "perl",
       dist_author        => "Sullivan Beck <sbeck\@cpan.org>",
@@ -57,6 +57,25 @@ my $build = $class->new(
       build_requires     => \%build_prereq,
       recommends         => \%script_prereq,
       sign               => 1,
+
+      ($Module::Build::VERSION >= 0.28
+       ? (meta_merge => {
+             resources => {
+                repository => "https://github.com/SBECK-github/Data-Checker",
+             }
+          })
+       : ()),
+      script_files       => [
+                             '.git/hooks/pre-commit.sample',
+                             '.git/hooks/post-update.sample',
+                             '.git/hooks/pre-applypatch.sample',
+                             '.git/hooks/applypatch-msg.sample',
+                             '.git/hooks/update.sample',
+                             '.git/hooks/pre-rebase.sample',
+                             '.git/hooks/pre-push.sample',
+                             '.git/hooks/commit-msg.sample',
+                             '.git/hooks/prepare-commit-msg.sample',
+                            ],
 );
 
 $build->create_build_script;

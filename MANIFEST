@@ -1,6 +1,8 @@
+.travis.yml
 Build.PL
 Changes
 INSTALL
+internal/build.yaml
 internal/NOTES
 lib/Data/Checker.pm
 lib/Data/Checker.pod
