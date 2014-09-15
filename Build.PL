@@ -42,7 +42,7 @@ my $class = Module::Build->subclass(
 
 my $build = $class->new(
       module_name        => "Data::Checker",
-      dist_version       => "1.03",
+      dist_version       => "1.04",
       dist_abstract      => "a framework for checking data validity",
       license            => "perl",
       dist_author        => "Sullivan Beck <sbeck\@cpan.org>",
@@ -65,17 +65,6 @@ my $build = $class->new(
              }
           })
        : ()),
-      script_files       => [
-                             '.git/hooks/pre-commit.sample',
-                             '.git/hooks/post-update.sample',
-                             '.git/hooks/pre-applypatch.sample',
-                             '.git/hooks/applypatch-msg.sample',
-                             '.git/hooks/update.sample',
-                             '.git/hooks/pre-rebase.sample',
-                             '.git/hooks/pre-push.sample',
-                             '.git/hooks/commit-msg.sample',
-                             '.git/hooks/prepare-commit-msg.sample',
-                            ],
 );
 
 $build->create_build_script;

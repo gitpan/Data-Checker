@@ -38,7 +38,7 @@ if ($EU_MM_V < 6.64) {
 
 WriteMakefile(
    NAME             => "Data::Checker",
-   VERSION          => "1.03",
+   VERSION          => "1.04",
    ABSTRACT         => "a framework for checking data validity",
    LICENSE          => "perl",
    ($EU_MM_V >= 6.48
@@ -66,15 +66,4 @@ WriteMakefile(
         }
        })
     : ()),
-   EXE_FILES        => [
-                        '.git/hooks/pre-commit.sample',
-                        '.git/hooks/post-update.sample',
-                        '.git/hooks/pre-applypatch.sample',
-                        '.git/hooks/applypatch-msg.sample',
-                        '.git/hooks/update.sample',
-                        '.git/hooks/pre-rebase.sample',
-                        '.git/hooks/pre-push.sample',
-                        '.git/hooks/commit-msg.sample',
-                        '.git/hooks/prepare-commit-msg.sample',
-                       ],
 );
