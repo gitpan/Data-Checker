@@ -4,7 +4,7 @@
       "Sullivan Beck <sbeck@cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.4205",
+   "generated_by" : "Module::Build version 0.4003, CPAN::Meta::Converter version 2.142060",
    "license" : [
       "perl_5"
    ],
@@ -16,7 +16,9 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "Module::Build" : "0.21"
+            "Module::Build" : "0.21",
+            "Test::Inter" : "0",
+            "Test::More" : "0"
          }
       },
       "configure" : {
@@ -35,30 +37,24 @@
             "Parallel::ForkManager" : "0",
             "perl" : "5.008"
          }
-      },
-      "test" : {
-         "requires" : {
-            "Test::Inter" : "0",
-            "Test::More" : "0"
-         }
       }
    },
    "provides" : {
       "Data::Checker" : {
          "file" : "lib/Data/Checker.pm",
-         "version" : "1.04"
+         "version" : "1.05"
       },
       "Data::Checker::DNS" : {
          "file" : "lib/Data/Checker/DNS.pm",
-         "version" : "1.04"
+         "version" : "1.05"
       },
       "Data::Checker::IP" : {
          "file" : "lib/Data/Checker/IP.pm",
-         "version" : "1.04"
+         "version" : "1.05"
       },
       "Data::Checker::Ping" : {
          "file" : "lib/Data/Checker/Ping.pm",
-         "version" : "1.04"
+         "version" : "1.05"
       }
    },
    "release_status" : "stable",
@@ -70,5 +66,5 @@
          "url" : "https://github.com/SBECK-github/Data-Checker"
       }
    },
-   "version" : "1.04"
+   "version" : "1.05"
 }

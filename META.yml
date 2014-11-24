@@ -9,7 +9,7 @@ build_requires:
 configure_requires:
   Module::Build: '0.21'
 dynamic_config: 1
-generated_by: 'Module::Build version 0.4205, CPAN::Meta::Converter version 2.141170'
+generated_by: 'Module::Build version 0.4003, CPAN::Meta::Converter version 2.142060'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -18,16 +18,16 @@ name: Data-Checker
 provides:
   Data::Checker:
     file: lib/Data/Checker.pm
-    version: '1.04'
+    version: '1.05'
   Data::Checker::DNS:
     file: lib/Data/Checker/DNS.pm
-    version: '1.04'
+    version: '1.05'
   Data::Checker::IP:
     file: lib/Data/Checker/IP.pm
-    version: '1.04'
+    version: '1.05'
   Data::Checker::Ping:
     file: lib/Data/Checker/Ping.pm
-    version: '1.04'
+    version: '1.05'
 requires:
   Module::Loaded: '0'
   Net::DNS: '0'
@@ -40,4 +40,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: https://github.com/SBECK-github/Data-Checker
-version: '1.04'
+version: '1.05'
